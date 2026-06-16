@@ -64,4 +64,31 @@ test(ids_json_remove_duplicatas, [setup(setup_base)]) :-
     ids_json(["t1", "t1", "t3"], Dicts),
     length(Dicts, N), N == 2.
 
+test(ordenar_recente, [setup(setup_base)]) :-
+    ordenar(recente, ["t2", "t3", "t1"], Ordenados),
+    Ordenados == ["t1", "t3", "t2"].
+
+test(ordenar_antigo, [setup(setup_base)]) :-
+    ordenar(antigo, ["t1", "t2", "t3"], Ordenados),
+    Ordenados == ["t2", "t3", "t1"].
+
+test(ordenar_titulo_ignora_acento, [setup(setup_base)]) :-
+    ordenar(titulo, ["t1", "t2", "t3"], Ordenados),
+    Ordenados == ["t3", "t1", "t2"].
+
+test(ordenar_titulo_desc, [setup(setup_base)]) :-
+    ordenar(titulo_desc, ["t1", "t2", "t3"], Ordenados),
+    Ordenados == ["t2", "t1", "t3"].
+
+% Desempate por título no mesmo ano: "Banco..." vem antes de "Compiladores...".
+test(ordenar_recente_desempata_por_titulo, [setup(setup_desempate)]) :-
+    ordenar(recente, ["a", "b", "c"], Ordenados),
+    Ordenados == ["b", "c", "a"].
+
+setup_desempate :-
+    retractall(db:tcc(_,_,_,_,_)),
+    db:assertz(db:tcc("a", "Compiladores", 2020, "CC", "")),
+    db:assertz(db:tcc("b", "Algoritmos", 2024, "CC", "")),
+    db:assertz(db:tcc("c", "Banco de Dados", 2020, "SI", "")).
+
 :- end_tests(consultas).
