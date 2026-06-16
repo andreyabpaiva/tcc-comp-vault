@@ -6,26 +6,10 @@ import { ResultsGrid } from "@/components/results-grid";
 import { Pagination } from "@/components/pagination";
 import { buscarTccs } from "@/lib/api";
 import { PAGE_SIZE } from "@/lib/constants";
-import type {
-  Criterio,
-  FiltroCurso,
-  ParametrosBusca,
-} from "@/lib/types";
+import type { FiltroCurso, Filtros, ParametrosBusca } from "@/lib/types";
 import { ESTADO_INICIAL } from "./constants";
 import type { EstadoLista } from "./types";
-import { countLabel, emptyTitle } from "./utils";
-
-function paramsDe(s: EstadoLista, pageOverride?: number): ParametrosBusca {
-  return {
-    criterio: s.criterio,
-    query: s.query,
-    anoDe: s.anoDe,
-    anoAte: s.anoAte,
-    curso: s.curso,
-    page: pageOverride ?? s.page,
-    size: PAGE_SIZE,
-  };
-}
+import { countLabel, emptyTitle, paramsDe } from "./utils";
 
 export function ListView() {
   const [s, setS] = useState<EstadoLista>(ESTADO_INICIAL);
@@ -65,11 +49,14 @@ export function ListView() {
     executar(paramsDe(ESTADO_INICIAL, 1));
   }, [executar]);
 
-  const onCriterio = (criterio: Criterio) =>
-    setS((p) => ({ ...p, criterio, query: "", anoDe: "", anoAte: "", page: 1 }));
-  const onQuery = (query: string) => setS((p) => ({ ...p, query }));
-  const onAnoDe = (anoDe: string) => setS((p) => ({ ...p, anoDe }));
-  const onAnoAte = (anoAte: string) => setS((p) => ({ ...p, anoAte }));
+  const onChange = (patch: Partial<Omit<Filtros, "curso">>) =>
+    setS((p) => {
+      const trocouCriterio =
+        patch.criterio !== undefined && patch.criterio !== p.criterio;
+      return trocouCriterio
+        ? { ...p, ...patch, query: "", anoDe: "", anoAte: "", page: 1 }
+        : { ...p, ...patch };
+    });
 
   const onBuscar = () => executar(paramsDe(s, 1));
   const onCurso = (curso: FiltroCurso) => executar({ ...paramsDe(s, 1), curso });
@@ -95,15 +82,8 @@ export function ListView() {
       </div>
 
       <SearchPanel
-        criterio={s.criterio}
-        query={s.query}
-        anoDe={s.anoDe}
-        anoAte={s.anoAte}
-        curso={s.curso}
-        onCriterio={onCriterio}
-        onQuery={onQuery}
-        onAnoDe={onAnoDe}
-        onAnoAte={onAnoAte}
+        filtros={s}
+        onChange={onChange}
         onCurso={onCurso}
         onBuscar={onBuscar}
       />

@@ -8,19 +8,8 @@ const FIELD =
   "h-[46px] rounded-field border border-line-input outline-none focus:border-primary";
 
 export function SearchPanel(props: SearchPanelProps) {
-  const {
-    criterio,
-    query,
-    anoDe,
-    anoAte,
-    curso,
-    onCriterio,
-    onQuery,
-    onAnoDe,
-    onAnoAte,
-    onCurso,
-    onBuscar,
-  } = props;
+  const { filtros, onChange, onCurso, onBuscar } = props;
+  const { criterio, query, anoDe, anoAte, curso } = filtros;
 
   const isPeriodo = criterio === "periodo";
 
@@ -35,7 +24,7 @@ export function SearchPanel(props: SearchPanelProps) {
           <select
             aria-label="Critério de busca"
             value={criterio}
-            onChange={(e) => onCriterio(e.target.value as Criterio)}
+            onChange={(e) => onChange({ criterio: e.target.value as Criterio })}
             className="h-[46px] min-w-[180px] cursor-pointer appearance-none rounded-field border border-line-input bg-surface px-4 pr-[38px] text-[13px] font-medium text-ink outline-none focus:border-primary"
           >
             {CRITERIOS.map((c) => (
@@ -77,7 +66,7 @@ export function SearchPanel(props: SearchPanelProps) {
             <input
               type="text"
               value={query}
-              onChange={(e) => onQuery(e.target.value)}
+              onChange={(e) => onChange({ query: e.target.value })}
               onKeyDown={onEnter}
               placeholder={placeholderFor(criterio)}
               className="min-w-0 flex-1 border-none bg-transparent text-sm text-ink outline-none"
@@ -91,7 +80,7 @@ export function SearchPanel(props: SearchPanelProps) {
             <input
               type="number"
               value={anoDe}
-              onChange={(e) => onAnoDe(e.target.value)}
+              onChange={(e) => onChange({ anoDe: e.target.value })}
               onKeyDown={onEnter}
               placeholder="2019"
               className={`${FIELD} w-full bg-white px-3.5 text-sm text-ink`}
@@ -100,7 +89,7 @@ export function SearchPanel(props: SearchPanelProps) {
             <input
               type="number"
               value={anoAte}
-              onChange={(e) => onAnoAte(e.target.value)}
+              onChange={(e) => onChange({ anoAte: e.target.value })}
               onKeyDown={onEnter}
               placeholder="2024"
               className={`${FIELD} w-full bg-white px-3.5 text-sm text-ink`}

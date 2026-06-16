@@ -23,12 +23,15 @@ export type Criterio = "titulo" | "autor" | "orientador" | "palavra" | "periodo"
 
 export type FiltroCurso = "todos" | "CC" | "SI";
 
-export interface ParametrosBusca {
+export interface Filtros {
   criterio: Criterio;
   query: string;
   anoDe: string;
   anoAte: string;
   curso: FiltroCurso;
+}
+
+export interface ParametrosBusca extends Filtros {
   page: number;
   size: number;
 }
