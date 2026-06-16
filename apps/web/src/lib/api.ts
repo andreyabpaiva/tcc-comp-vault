@@ -20,6 +20,7 @@ export async function buscarTccs(p: ParametrosBusca): Promise<RespostaBusca> {
 
   if (p.curso !== "todos") qs.set("curso", p.curso);
 
+  qs.set("sort", p.sort);
   qs.set("page", String(Math.max(0, p.page - 1)));
   qs.set("size", String(p.size));
 

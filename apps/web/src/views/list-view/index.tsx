@@ -5,8 +5,13 @@ import { SearchPanel } from "@/components/search-panel";
 import { ResultsGrid } from "@/components/results-grid";
 import { Pagination } from "@/components/pagination";
 import { buscarTccs } from "@/lib/api";
-import { PAGE_SIZE } from "@/lib/constants";
-import type { FiltroCurso, Filtros, ParametrosBusca } from "@/lib/types";
+import { ORDENACOES, PAGE_SIZE } from "@/lib/constants";
+import type {
+  FiltroCurso,
+  Filtros,
+  Ordenacao,
+  ParametrosBusca,
+} from "@/lib/types";
 import { ESTADO_INICIAL } from "./constants";
 import type { EstadoLista } from "./types";
 import { countLabel, emptyTitle, paramsDe } from "./utils";
@@ -24,6 +29,7 @@ export function ListView() {
       anoDe: p.anoDe,
       anoAte: p.anoAte,
       curso: p.curso,
+      sort: p.sort,
       page: p.page,
     }));
     try {
@@ -60,6 +66,7 @@ export function ListView() {
 
   const onBuscar = () => executar(paramsDe(s, 1));
   const onCurso = (curso: FiltroCurso) => executar({ ...paramsDe(s, 1), curso });
+  const onSort = (sort: Ordenacao) => executar({ ...paramsDe(s, 1), sort });
   const onRetry = () => executar(paramsDe(s));
   const onGoTo = (page: number) => {
     executar(paramsDe(s, page));
@@ -88,13 +95,43 @@ export function ListView() {
         onBuscar={onBuscar}
       />
 
-      <div className="mb-3.5 flex flex-wrap items-baseline gap-2.5">
+      <div className="mb-3.5 flex flex-wrap items-center gap-2.5">
         <span className="text-[15px] font-medium text-ink">
           {s.error ? "—" : countLabel(s.total)}
         </span>
         <div className="flex-1" />
-        <span className="text-xs text-ink-faint">Ordenado por</span>
-        <span className="text-xs font-medium text-ink-muted">mais recentes</span>
+        <div className="flex items-center gap-2">
+          <label htmlFor="ordenacao" className="text-xs text-ink-faint">
+            Ordenado por
+          </label>
+          <div className="relative">
+            <select
+              id="ordenacao"
+              value={s.sort}
+              onChange={(e) => onSort(e.target.value as Ordenacao)}
+              className="h-[28px] cursor-pointer appearance-none rounded border border-line-input bg-white pl-2.5 pr-[26px] text-xs font-medium text-ink-muted outline-none focus:border-primary"
+            >
+              {ORDENACOES.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <svg
+              className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#6A6460"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <ResultsGrid
