@@ -40,7 +40,7 @@ ingerir_pagina(Scope, Page, Acc, Total) :-
     base_url(Base),
     tamanho_pagina(Size),
     format(string(Url),
-        "~w/discover/search/objects?scope=~w&dsoType=item&page=~w&size=~w",
+        "~w/discover/search/objects?scope=~w&dsoType=item&sort=dc.date.issued,desc&page=~w&size=~w",
         [Base, Scope, Page, Size]),
     get_json(Url, Dict),
     ( objetos(Dict, Objetos), Objetos \== []

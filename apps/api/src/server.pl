@@ -47,14 +47,17 @@ buscar_tccs(Request) :-
         inicio(Inicio,         [integer, optional(true), default(0)]),
         fim(Fim,               [integer, optional(true), default(9999)]),
         curso(Curso,           [optional(true), default('')]),
+        sort(SortIn,           [optional(true), default(recente)]),
         page(Page,             [integer, optional(true), default(0)]),
         size(Size,             [integer, optional(true), default(20)])
     ]),
+    sort_aceito(SortIn, Sort),
     findall(Id,
         ( consultar(Titulo, Autor, Orientador, Palavra, Inicio, Fim, Id),
           curso_ok(Curso, Id) ),
         Ids),
-    ids_json(Ids, Todos),
+    ordenar(Sort, Ids, IdsOrdenados),
+    ids_json(IdsOrdenados, Todos),
     paginar(Todos, Page, Size, Pagina),
     length(Todos, Total),
     reply_json_dict(_{
@@ -79,6 +82,13 @@ curso_ok('', _) :- !.
 curso_ok(Curso, Id) :-
     atom_string(Curso, CursoS),
     tcc(Id, _, _, CursoS, _).
+
+% Valores aceitos para sort; qualquer outro recai no default.
+sort_aceito(recente,     recente)     :- !.
+sort_aceito(antigo,      antigo)      :- !.
+sort_aceito(titulo,      titulo)      :- !.
+sort_aceito(titulo_desc, titulo_desc) :- !.
+sort_aceito(_,           recente).
 
 detalhe_tcc(Id, Request) :-
     cors_enable(Request, [methods([get])]),
