@@ -1,0 +1,8 @@
+apps/api/data/tccs.db
+
+# Logs
+*.log
+
+node_modules/
+dist/
+.DS_Store
