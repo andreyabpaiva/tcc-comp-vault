@@ -151,11 +151,12 @@ extrair_ano(Issued, Ano) :-
     ;  Ano = 0
     ).
 
-% Curso inferido do texto da citação (normalizado).
+% Curso inferido do texto da citação (normalizado). A coleção da BDM abriga CC e
+% SI; quando o texto não permite distinguir, assume-se CC (a Faculdade não tem
+% curso chamado "Computação").
 detectar_curso(Citacao, Curso) :-
     normaliza(Citacao, C),
-    ( sub_string(C, _, _, _, "ciencia da computacao") -> Curso = "CC"
-    ; sub_string(C, _, _, _, "sistemas de informacao") -> Curso = "SI"
+    ( sub_string(C, _, _, _, "sistemas de informacao") -> Curso = "SI"
     ; sub_string(C, _, _, _, "sistema de informacao")  -> Curso = "SI"
-    ; Curso = "Computação"
+    ; Curso = "CC"
     ).
