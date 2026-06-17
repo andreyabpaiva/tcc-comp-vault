@@ -55,7 +55,6 @@ export function DetailView({ id }: DetailViewProps) {
         </div>
       ) : (
         <article className="overflow-hidden rounded-detail border border-line bg-white">
-          {/* Faixa com checkerboard */}
           <div className="bg-checkerboard border-b border-line px-9 pb-7 pt-8">
             <div className="mb-4 flex items-center gap-[9px]">
               <Badge curso={tcc.curso} />
@@ -71,9 +70,7 @@ export function DetailView({ id }: DetailViewProps) {
             </h1>
           </div>
 
-          {/* Corpo */}
           <div className="px-9 pb-8 pt-7">
-            {/* Metadados */}
             <div className="mb-[26px] grid grid-cols-1 gap-px overflow-hidden rounded-[10px] border border-line bg-line sm:grid-cols-2">
               <div className="bg-white px-[18px] py-3.5">
                 <div className="mb-[5px] text-[9.5px] font-medium uppercase tracking-[0.09em] text-ink-faint">
@@ -93,7 +90,6 @@ export function DetailView({ id }: DetailViewProps) {
               </div>
             </div>
 
-            {/* Palavras-chave */}
             {tcc.palavras_chave.length > 0 && (
               <div className="mb-[26px]">
                 <div className="mb-[11px] text-[10px] font-medium uppercase tracking-[0.1em] text-ink">
@@ -107,7 +103,6 @@ export function DetailView({ id }: DetailViewProps) {
               </div>
             )}
 
-            {/* Resumo */}
             {tcc.resumo && (
               <div className="mb-[30px]">
                 <div className="mb-[11px] text-[10px] font-medium uppercase tracking-[0.1em] text-ink">
@@ -140,12 +135,6 @@ export function DetailView({ id }: DetailViewProps) {
                   </svg>
                 </a>
               )}
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 rounded-field border-[1.5px] border-line-input bg-white px-[22px] py-[13px] text-sm font-medium text-ink-muted hover:border-[#C8C4BE]"
-              >
-                Voltar
-              </Link>
             </div>
           </div>
         </article>
