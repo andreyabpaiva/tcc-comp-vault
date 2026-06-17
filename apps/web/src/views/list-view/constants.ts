@@ -6,6 +6,7 @@ export const ESTADO_INICIAL: EstadoLista = {
   anoDe: "",
   anoAte: "",
   curso: "todos",
+  sort: "recente",
   page: 1,
   loading: true,
   error: false,

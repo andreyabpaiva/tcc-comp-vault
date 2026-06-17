@@ -28,6 +28,7 @@ export function paramsDe(s: EstadoLista, pageOverride?: number): ParametrosBusca
     anoDe: s.anoDe,
     anoAte: s.anoAte,
     curso: s.curso,
+    sort: s.sort,
     page: pageOverride ?? s.page,
     size: PAGE_SIZE,
   };

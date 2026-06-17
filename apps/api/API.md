@@ -18,8 +18,9 @@ flowchart LR
 
 A sincronização (`ingest.pl`) materializa os dados da BDM como fatos na base
 persistida (`db.pl`). As requisições HTTP (`server.pl`) selecionam a regra de
-consulta apropriada (`rules.pl`), e o resultado é convertido em JSON
-(`serializa.pl`). A camada HTTP não executa filtragem nem ordenação.
+consulta apropriada (`rules.pl`), aplicam a regra de ordenação (`ordenar/3`) e o
+resultado é convertido em JSON (`serializa.pl`). A camada HTTP não executa
+filtragem nem ordenação por conta própria.
 
 ## 2. Modelo de dados
 
@@ -57,6 +58,7 @@ e descarte de marcas combinantes a ambos os lados da comparação.
 | `por_periodo/3` | Intervalo de anos. |
 | `por_palavra/2` | Palavra-chave. |
 | `listar_todos/1` | Listagem completa. |
+| `ordenar/3` | Ordena os ids resultantes pelos critérios aceitos (ver §4). |
 
 Exemplo:
 
@@ -85,6 +87,7 @@ critério principal.
 | `palavra` | texto | Consulta por palavra-chave. |
 | `inicio`, `fim` | inteiro | Intervalo de anos (consulta por período). |
 | `curso` | `CC` ou `SI` | Filtro de curso, combinável com o critério acima. |
+| `sort` | `recente`, `antigo`, `titulo` ou `titulo_desc` | Ordenação dos resultados. Padrão `recente` (ano DESC com desempate por título); `antigo` é ano ASC; `titulo` é alfabética insensível a acento; `titulo_desc` é a mesma comparação invertida (Z-A). Valores não reconhecidos recaem no padrão. |
 | `page` | inteiro | Página, indexada a partir de 0 (padrão 0). |
 | `size` | inteiro | Itens por página (padrão 20). |
 

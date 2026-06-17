@@ -1,4 +1,4 @@
-import type { Criterio, FiltroCurso, Tcc } from "@/lib/types";
+import type { Criterio, FiltroCurso, Ordenacao, Tcc } from "@/lib/types";
 
 export interface EstadoLista {
   criterio: Criterio;
@@ -6,6 +6,7 @@ export interface EstadoLista {
   anoDe: string;
   anoAte: string;
   curso: FiltroCurso;
+  sort: Ordenacao;
   page: number;
   loading: boolean;
   error: boolean;
