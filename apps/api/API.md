@@ -38,7 +38,9 @@ inicialização.
 
 - `Id`: identificador (UUID do item na BDM).
 - `Ano`: inteiro, extraído de `dc.date.issued`.
-- `Curso`: `"CC"`, `"SI"` ou `"Computação"` (quando não classificável).
+- `Curso`: `"CC"` ou `"SI"`. Quando o texto da citação não permite distinguir
+  (ex.: "Bacharelado em Computação"), atribui-se `"CC"` por padrão — a Faculdade
+  não oferece curso chamado "Computação".
 
 ## 3. Regras de consulta
 

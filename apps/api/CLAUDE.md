@@ -39,7 +39,5 @@ DON'T
 - Não introduzir banco SQL ou externo.
 - Não duplicar valores com fatos auxiliares sem acento; normalizar na
   comparação.
-- Não alterar valores de dados consumidos pelo frontend (por exemplo, o curso
-  `"Computação"`).
 - Não versionar `data/tccs.db` (é gerado pela sincronização).
 - Não reintroduzir blocos de comentário longos nem docstring por predicado.
