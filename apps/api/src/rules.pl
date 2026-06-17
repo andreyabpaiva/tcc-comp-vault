@@ -16,16 +16,19 @@
 :- use_module(normaliza).
 
 por_titulo(Termo, Id) :-
-    tcc(Id, Titulo, _, _, _),
-    contem(Titulo, Termo).
+    normaliza(Termo, TermoN),
+    tcc_titulo_norm(Id, TituloN),
+    sub_string(TituloN, _, _, _, TermoN).
 
 por_autor(Termo, Id) :-
-    autor(Id, Nome),
-    contem(Nome, Termo).
+    normaliza(Termo, TermoN),
+    autor_norm(Id, NomeN),
+    sub_string(NomeN, _, _, _, TermoN).
 
 por_orientador(Termo, Id) :-
-    orientador(Id, Nome),
-    contem(Nome, Termo).
+    normaliza(Termo, TermoN),
+    orientador_norm(Id, NomeN),
+    sub_string(NomeN, _, _, _, TermoN).
 
 por_periodo(Inicio, Fim, Id) :-
     tcc(Id, _, Ano, _, _),
@@ -33,8 +36,9 @@ por_periodo(Inicio, Fim, Id) :-
     Ano =< Fim.
 
 por_palavra(Termo, Id) :-
-    palavra_chave(Id, Palavra),
-    contem(Palavra, Termo).
+    normaliza(Termo, TermoN),
+    palavra_chave_norm(Id, PalavraN),
+    sub_string(PalavraN, _, _, _, TermoN).
 
 listar_todos(Id) :-
     tcc(Id, _, _, _, _).
@@ -51,12 +55,11 @@ ordenar(Criterio, Ids, Ordenados) :-
     pairs_values(ParesOrdenados, Ordenados).
 
 chave_ordem(recente, Id, k(NegAno, TituloN)) :-
-    tcc(Id, Titulo, Ano, _, _),
+    tcc(Id, _, Ano, _, _),
     NegAno is -Ano,
-    normaliza(Titulo, TituloN).
+    tcc_titulo_norm(Id, TituloN).
 chave_ordem(antigo, Id, k(Ano, TituloN)) :-
-    tcc(Id, Titulo, Ano, _, _),
-    normaliza(Titulo, TituloN).
+    tcc(Id, _, Ano, _, _),
+    tcc_titulo_norm(Id, TituloN).
 chave_ordem(titulo, Id, TituloN) :-
-    tcc(Id, Titulo, _, _, _),
-    normaliza(Titulo, TituloN).
+    tcc_titulo_norm(Id, TituloN).
