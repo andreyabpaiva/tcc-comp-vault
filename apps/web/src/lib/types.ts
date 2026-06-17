@@ -1,4 +1,4 @@
-export type Curso = "CC" | "SI" | "Computação";
+export type Curso = "CC" | "SI";
 
 export interface Tcc {
   id: string;

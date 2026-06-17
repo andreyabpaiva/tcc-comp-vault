@@ -4,7 +4,6 @@ import type { BadgeProps } from "./types";
 const CORES: Record<Curso, string> = {
   CC: "bg-primary/[0.13] text-primary border-primary/40",
   SI: "bg-si/[0.13] text-si border-si/40",
-  Computação: "bg-ink-muted/[0.12] text-ink-muted border-ink-muted/30",
 };
 
 export function Badge({ curso }: BadgeProps) {

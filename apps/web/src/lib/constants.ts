@@ -16,5 +16,4 @@ export const CRITERIOS: { value: Criterio; label: string }[] = [
 export const CURSO_LABEL: Record<string, string> = {
   CC: "Ciência da Computação",
   SI: "Sistema de Informação",
-  Computação: "Computação",
 };
