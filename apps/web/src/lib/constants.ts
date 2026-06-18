@@ -3,7 +3,7 @@ import type { Criterio, Ordenacao } from "./types";
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8080";
 
-export const PAGE_SIZE = 8;
+export const PAGE_SIZE = 9;
 
 export const CRITERIOS: { value: Criterio; label: string }[] = [
   { value: "titulo", label: "Por título" },
