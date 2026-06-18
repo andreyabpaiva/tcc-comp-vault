@@ -42,6 +42,8 @@ db_file(Path) :-
 
 carregar_base :-
     db_file(Path),
+    file_directory_name(Path, Dir),
+    make_directory_path(Dir),
     db_attach(Path, []).
 
 limpar_base :-
