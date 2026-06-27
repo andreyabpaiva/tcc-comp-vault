@@ -3,7 +3,7 @@
 # em runtime o servidor apenas serve.
 #
 # Contexto de build: raiz do repositório.
-FROM swipl:9
+FROM swipl:10.0.2
 
 WORKDIR /app
 
