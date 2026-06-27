@@ -1,0 +1,7 @@
+**/node_modules
+**/.next
+.git
+apps/web
+apps/api/data/tccs.db
+*.log
+.DS_Store

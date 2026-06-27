@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: tcc-comp-vault-api
+    runtime: docker
+    repo: https://github.com/andreyabpaiva/tcc-comp-vault
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /api/tccs
