@@ -159,7 +159,7 @@ A sincronização é completa por padrão: a base é limpa e reimportada.
 
 ```bash
 bash scripts/sync.sh    # importa os dados e gera apps/api/data/tccs.db
-bash scripts/serve.sh   # inicia o servidor em http://localhost:8080
+bash scripts/serve.sh   # inicia o servidor 
 ```
 
 Execução dos testes das regras:
